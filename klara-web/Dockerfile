@@ -28,10 +28,10 @@ WORKDIR /home/projects/
 # Clone the repository
 RUN git clone https://github.com/KasperskyLab/klara.git ./klara-github-repo
 RUN chown -R projects:projects ./klara-github-repo
-WORKDIR ./klara-github-repo
+WORKDIR /home/projects/klara-github-repo/
 #RUN git checkout 4b8130511edb7e4e179dbb5c47d83a6498cefec0
 RUN git checkout ${KLARA_REV}
-WORKDIR ..
+WORKDIR /home/projects/
 
 # Copy web files
 RUN cp -R ./klara-github-repo/web /

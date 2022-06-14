@@ -12,9 +12,11 @@ services:
     depends_on:
       - klara-web
     volumes:
+        # - "G:/nginx/site.conf:/etc/nginx/conf.d/default.conf"
         - ./nginx/site.conf:/etc/nginx/conf.d/default.conf
     environment:
       - KLARA_REV=$KLARA_REV
+    container_name: nginx
     networks:
       klaranet:
         aliases:
@@ -38,6 +40,7 @@ services:
       - MYSQL_DATABASE=$MYSQL_DATABASE
       - MYSQL_USER=$MYSQL_USER
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
+    container_name: klara-web
     networks:
       klaranet:
         aliases:
@@ -53,6 +56,7 @@ services:
       - klara-db
     environment:
       - KLARA_REV=$KLARA_REV
+    container_name: klara-dispatcher
     networks:
       klaranet:
         aliases:
@@ -67,9 +71,10 @@ services:
     depends_on:
       - klara-dispatcher
     volumes:
-      - ./klara-repository/repository:/var/projects/klara/repository
+      - "G:/klara-repository/repository:/var/projects/klara/repository"
     environment:
       - KLARA_REV=$KLARA_REV
+    container_name: klara-worker
     networks:
       klaranet:
         aliases:
@@ -84,7 +89,8 @@ services:
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
     volumes:
-      - ./klara-db/datadir:/var/lib/mysql
+      - "G:/klara-db/datadir:/var/lib/mysql"
+    container_name: klara-db
     networks:
       klaranet:
         aliases:
